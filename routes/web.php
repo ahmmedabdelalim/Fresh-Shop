@@ -25,6 +25,9 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'offers'], function () {
-    Route::get('store', [App\Http\Controllers\CrudController::class, 'store'] );
+    //Route::get('store', [App\Http\Controllers\CrudController::class, 'store'] );
+
+    Route::get('create', [App\Http\Controllers\CrudController::class, 'create']);
+    Route::post('store' , [App\Http\Controllers\CrudController::class, 'store'])->name('offers.store');
     
 });
