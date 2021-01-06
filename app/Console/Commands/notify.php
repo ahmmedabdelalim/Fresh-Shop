@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Console\Commands;
+
+use App\Mail\NotifyEmail;
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class notify extends Command
 {
@@ -18,7 +21,7 @@ class notify extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'for send daily emails';
 
     /**
      * Create a new command instance.
@@ -37,10 +40,11 @@ class notify extends Command
      */
     public function handle()
     {
-        $users = User::pluck('email')->toArray();
-        foreach($users as $user)
+        $emails = User::pluck('email')->toArray();
+        
+        foreach($emails as $email)
         {
-
+        Mail::To($email)->send(new NotifyEmail());
         }
     }
 }

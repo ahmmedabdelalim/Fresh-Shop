@@ -23,3 +23,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'offers'], function () {
+    Route::get('store', [App\Http\Controllers\CrudController::class, 'store'] );
+    
+});
