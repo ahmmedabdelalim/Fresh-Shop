@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+//use Mcamara\LaravelLocalization\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +26,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'offers'], function () {
-    //Route::get('store', [App\Http\Controllers\CrudController::class, 'store'] );
 
+Route::group(['prefix' =>  LaravelLocalization::setLocale(),'middleware' =>
+ [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],
+    function () {
+        Route::group(['prefix' => 'offers'], function () {
+            //Route::get('store', [App\Http\Controllers\CrudController::class, 'store'] );
+            Route::get('create', [App\Http\Controllers\CrudController::class, 'create']);
+        });
+        
     Route::get('create', [App\Http\Controllers\CrudController::class, 'create']);
     Route::post('store' , [App\Http\Controllers\CrudController::class, 'store'])->name('offers.store');
+    });
+
+
     
-});
+    
+
