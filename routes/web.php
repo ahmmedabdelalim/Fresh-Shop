@@ -26,17 +26,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/////////////
+/////////*************** routes for crude controller *************
 
 Route::group(['prefix' =>  LaravelLocalization::setLocale(),'middleware' =>
  [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],
     function () {
         Route::group(['prefix' => 'offers'], function () {
-            //Route::get('store', [App\Http\Controllers\CrudController::class, 'store'] );
-            Route::get('create', [App\Http\Controllers\CrudController::class, 'create']);
+        
+        Route::get('create', [App\Http\Controllers\CrudController::class, 'create']);
+        Route::post('store' , [App\Http\Controllers\CrudController::class, 'store'])->name('offers.store');
+
+        // route for select data from db 
+        Route::get('all',[App\Http\Controllers\CrudController::class, 'getAllOffer']);
+
+        // route for edit data 
+        Route::get('edit/{offer_id}',[App\Http\Controllers\CrudController::class, 'editOffer']);
+        Route::post('update/{offer_id}' , [App\Http\Controllers\CrudController::class, 'updateoffer'])->name('offers.update');
         });
         
-    Route::get('create', [App\Http\Controllers\CrudController::class, 'create']);
-    Route::post('store' , [App\Http\Controllers\CrudController::class, 'store'])->name('offers.store');
+
+    
+
+    
     });
 
 

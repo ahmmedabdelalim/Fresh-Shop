@@ -19,7 +19,8 @@ class CrudController extends Controller
     {
         
     }
-
+    /////////////////////********************  method for crude controller  */******************* */
+////////// first insert data
     public function create()
     {
         return view('offer.create');
@@ -64,13 +65,51 @@ class CrudController extends Controller
             'name.unique'=> trans('messages.offer name exist'),
             'price.required'=>trans('messages.offer price required'),
             'price.numeric'=> trans('messages.offer price wrong'),
-            'photo.required'=>trans('messages.offer photo required'),
+            'photo.required'=>trans('messages.photo is required'),
             
             
         ];
     }
 
+    // method for select data from DB
 
+    public function getAllOffer()
+    {
+        $offers= Offer::select('id','name','price','photo')->get();
+        return view('offer.display',compact('offers'));
+    }
+
+////////// ******** method for edite ****
+
+public function editOffer($offer_id)
+{
+
+    $offer = Offer::find($offer_id);
+
+    if(!$offer)
+    return redirect()->back();
+
+    $offer =   Offer::select('id','name','price','photo')->find($offer_id);
+
+    return view('offer.edit',compact('offer'));
+
+}
+
+public function updateoffer(Request $request ,$offer_id)
+{ 
+    // validation and check if offer exit 
+    $offer =   Offer::select('id','name','price','photo')->find($offer_id);
+
+    if(!$offer)
+    return redirect()->back();
+
+    // update
+
+    $offer->update($request->all());
+    return redirect()->back()->with(['success'=>'update done']);
+
+
+}
 
     /* public function store()
     {
