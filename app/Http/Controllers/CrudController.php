@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
+use App\traits\Offerstrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Unique;
-//use Illuminate\Validation\Validator;
+use Prophecy\Doubler\Generator\Node\ReturnTypeNode;
+
 
 class CrudController extends Controller
 {
@@ -15,10 +17,8 @@ class CrudController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        
-    }
+    
+    use Offerstrait ;
     /////////////////////********************  method for crude controller  */******************* */
 ////////// first insert data
     public function create()
@@ -38,10 +38,15 @@ class CrudController extends Controller
                 return  redirect()->back()->withErrors($validator)->withInput($request->all());
             }
 
+            //////////// save pohto in folder (images/photo)
+
+            $file_name = $this -> saveimage($request -> photo , 'images/offers');
+            
+
             Offer::create([
                 'name'=> $request -> name ,
                 'price'=> $request -> price,
-                'photo' => $request -> photo, 
+                'photo' => $file_name, 
             ]);
                 // if success return it
             return redirect()->back()->with([ 'success'=>'تم اضافه العرض بنجاح']);
@@ -70,6 +75,7 @@ class CrudController extends Controller
             
         ];
     }
+
 
     // method for select data from DB
 

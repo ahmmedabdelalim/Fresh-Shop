@@ -44,8 +44,18 @@
   <br>
       
   @endif
-  <form method="POST" class="form-horizontal" action="{{route('offers.store')}}">
+  <form method="POST" class="form-horizontal" action="{{route('offers.store')}}" enctype="multipart/form-data">
     @csrf
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">{{__('messages.offer photo')}}</label>
+      <div class="col-sm-10">
+        <input type="file" class="form-control" id="email" placeholder="Enter name " name="photo">
+        @error('photo')
+        <small class="from-text text-danger">{{$message}}</small>
+        @enderror
+      </div>
+    </div>
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="email">{{__('messages.offer name')}}</label>
       <div class="col-sm-10">
@@ -64,6 +74,7 @@
         @enderror
       </div>
     </div>
+    <!--
     <div class="form-group">
         <label class="control-label col-sm-2" for="email">{{__('messages.offer photo')}}</label>
         <div class="col-sm-10">
@@ -72,7 +83,8 @@
         <small class="from-text text-danger">{{$message}}</small>
         @enderror
         </div>
-      </div>
+      </div> 
+    -->
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
         <div class="checkbox">
