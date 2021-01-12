@@ -43,12 +43,20 @@ Route::group(['prefix' =>  LaravelLocalization::setLocale(),'middleware' =>
         // route for edit data 
         Route::get('edit/{offer_id}',[App\Http\Controllers\CrudController::class, 'editOffer']);
         Route::post('update/{offer_id}' , [App\Http\Controllers\CrudController::class, 'updateoffer'])->name('offers.update');
+        Route::get('delete/{offer_id}' , [App\Http\Controllers\CrudController::class, 'delete'])->name('offers.delete');
         });
         
 
     
 
     
+    });
+
+    ///////// ajax route
+    Route::group(['prefix' => 'ajaxoffers'], function () {
+        
+        Route::get('create', [App\Http\Controllers\OfferController::class, 'create']);
+        Route::post('store' , [App\Http\Controllers\OfferController::class, 'store'])->name('ajax.offers.store');
     });
 
 

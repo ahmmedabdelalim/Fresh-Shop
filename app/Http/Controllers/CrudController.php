@@ -117,6 +117,24 @@ public function updateoffer(Request $request ,$offer_id)
 
 }
 
+/// method for delete from db 
+
+public function delete($offer_id)
+{
+
+    // check if oofer id is exist 
+    $offer = Offer::find($offer_id);
+
+    if(!$offer)
+    // return to the back page
+    return redirect()->back()->with(['errore'=>'errore']);
+
+    $offer->delete();
+    // return to determine page 
+    return redirect()->back()->with(['success'=>'delete done']);
+
+}
+
     /* public function store()
     {
         Offer::create(['name'=>'ahmed','price'=>'100','photo'=>'iam']);
