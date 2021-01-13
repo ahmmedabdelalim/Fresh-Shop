@@ -23,29 +23,41 @@ class OfferController extends Controller
     {
             //  validate data before insert data in DB 
             
-           /* $rules = $this -> getRules();
+            $rules = $this -> getRules();
             $messages = $this -> getMessages();
             $validator = Validator::make($request->all(),$rules ,$messages); 
 
             if ($validator->fails())
             {
                 return  redirect()->back()->withErrors($validator)->withInput($request->all());
-            }*/
+            }
 
             //////////// save pohto in folder (images/photo)
 
-            //$file_name = $this -> saveimage($request -> photo , 'images/offers');
+            $file_name = $this -> saveimage($request -> photo , 'images/offers');
             
 
-            Offer::create([
+            $offer = Offer::create([
                 'name'=> $request -> name ,
                 'price'=> $request -> price,
-                //'photo' => $file_name, 
+                'photo' => $file_name, 
             ]);
-                // if success return it
-            return redirect()->back()->with([ 'success'=>'تم اضافه العرض بنجاح']);
+                // if success return it and this wy for ajax  
+            if ($offer){
+            return response()->json([
+                'status'=> true , 
+                'msg' => 'add done',
+            ]);}
+            
+            else
+            {
+                return response()->json([
+                    'status'=> false , 
+                    'msg' => 'add faild',
+                ]);
+            }
     }
-/*
+
     protected function getRules()
     {
     return $rules=[
@@ -69,7 +81,27 @@ class OfferController extends Controller
             
         ];
     }
-*/
+
+    ///// create method for display data from db 
+
+    public function all()
+    {
+        $offers= Offer::select('id','name','price','photo')->get();
+        return view('ajaxoffers.display',compact('offers'));
+
+    }
+
+    public function delete(Request $request)
+    {
+        $offer = Offer::find( $request->id );
+        $offer->delete();
+        return response()->json([
+            'id'=> $request->id,
+        'message' => 'Data deleted successfully!'
+        ]);
+    }
+    
+
 
     
 

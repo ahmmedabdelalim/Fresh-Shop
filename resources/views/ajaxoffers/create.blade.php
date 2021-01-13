@@ -14,7 +14,7 @@
   <br>
       
   @endif
-  <form method="" class="form-horizontal" action="" enctype="multipart/form-data">
+  <form method="" class="form-horizontal" id="offerform" action="" enctype="multipart/form-data">
     
     <div class="form-group">
       <label class="control-label col-sm-2" for="email">{{__('messages.offer photo')}}</label>
@@ -74,25 +74,31 @@
 @section('scripts')
 <script type="text/javascript">
 
-
           $(document).on('click','#saveoffer',function (e) {
             e.preventDefault();
-            var name = $("input[name=name]").val();
-            var price = $("input[name=price]").val();
-            
-            
+              //// csrf token for form it is importants
+            $.ajaxSetup({
+    headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+                });
+
+            // for get all data from the form
+            var formData = new FormData ($('#offerform')[0]);
 
             $.ajax({
               type:'POST',
+              enctype: 'multipart/form-data',
               url:"{{route('ajax.offers.store')}}",
-              data:{
-                _token: '{!! csrf_token() !!}',
-                name:name ,
-                price:price,
-                
+              data:formData ,
+              processData:false,
+              contentType : false,
+              cache:false,
+              success: function (data) {
+                if(data.status==true)
+                alert(data.msg)
                 
               },
-              
 
             });
           });
