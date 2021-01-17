@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 //use Mcamara\LaravelLocalization\LaravelLocalization;
@@ -26,11 +27,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/dashboard', function () {
+    return 'not allowed';
+})->name('NotAllowed');
+
 /////////////
 /////////*************** routes for crude controller *************
 
 Route::group(['prefix' =>  LaravelLocalization::setLocale(),'middleware' =>
- [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],
+    [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],
     function () {
         Route::group(['prefix' => 'offers'], function () {
         
@@ -52,17 +58,38 @@ Route::group(['prefix' =>  LaravelLocalization::setLocale(),'middleware' =>
     
     });
 
-    ///////// ajax route
+    ///////// ajax route /////////////////// 
     Route::group(['prefix' => 'ajaxoffers'], function () {
         
         Route::get('create', [App\Http\Controllers\OfferController::class, 'create']);
         Route::post('store' , [App\Http\Controllers\OfferController::class, 'store'])->name('ajax.offers.store');
         Route::get('all' , [App\Http\Controllers\OfferController::class, 'all'])->name('ajax.offers.all');
         Route::post('delete' , [App\Http\Controllers\OfferController::class, 'delete'])->name('ajax.offers.delete');
+        Route::get('edit/{offer_id}',[App\Http\Controllers\OfferController::class, 'editoffer'])->name('ajax.offers.edit');
+        Route::post('update' , [App\Http\Controllers\OfferController::class, 'updateoffer'])->name('ajax.offers.update');
 
     });
+  ///////////// end of ajax///////////
 
 
+
+    //////////// start of  authentication and guards ////////
+    Route::group(['middleware' => 'CheckAge' ], function () {
     
+    Route::get('adult',[App\Http\Controllers\Auth\CustomAuthController::class, 'adult'])->name('adult');
     
+    });
+
+    Route::get('site',[App\Http\Controllers\Auth\CustomAuthController::class, 'site'])->middleware('auth:web')->name('site');
+    Route::get('admin',[App\Http\Controllers\Auth\CustomAuthController::class, 'admin'])->middleware('auth:admin')->name('admin');
+        
+    Route::get('admin/login',[App\Http\Controllers\Auth\CustomAuthController::class, 'adminlogin']) ->name('admin.login');
+    Route::post('admin/login',[App\Http\Controllers\Auth\CustomAuthController::class, 'checkadmin'])->name('save.admin.login');
+        
+        
+
+
+     //////////// end of  authentication and guards ////////
+
+
 

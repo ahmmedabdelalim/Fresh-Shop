@@ -27,6 +27,7 @@
       <td><a href="{{route('offers.delete',$offer -> id)}}" class="btn btn-success">Delete</a></td>
       <td><a href=""   offerid="{{$offer -> id}}"  class=" ajaxdelete btn btn-success"  >Ajax Delete</a></td>
       <td><a href="{{url('offers/edit/'.$offer -> id)}}" class="btn btn-success">Update</a></td>
+      <td><a href="{{route('ajax.offers.edit',$offer -> id)}}" class="btn btn-success">Edit</a></td>
       
     </tr>
     @endforeach
