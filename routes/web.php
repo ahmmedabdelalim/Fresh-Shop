@@ -91,5 +91,12 @@ Route::group(['prefix' =>  LaravelLocalization::setLocale(),'middleware' =>
 
      //////////// end of  authentication and guards ////////
 
+    ############## relation
+
+    Route::get('hasone',[App\Http\Controllers\RelationController::class, 'hasOneRelation']);
+    Route::get('Reversehasone',[App\Http\Controllers\RelationController::class, 'ReverseHasOne']);
+    Route::get('gethasphone',[App\Http\Controllers\RelationController::class, 'gethasphone']);
+    Route::get('getwithcondition',[App\Http\Controllers\RelationController::class, 'getwithcondition']);
+
 
 

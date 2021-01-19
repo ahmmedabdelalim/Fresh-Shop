@@ -16,6 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
+    protected $table = 'users';
     protected $fillable = [
         'name',
         'email',
@@ -44,4 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    ########## relations ##########
+
+    public function phone()
+    {
+        return $this->hasOne(Phone::class, 'user-id');
+    }
 }
