@@ -91,12 +91,29 @@ Route::group(['prefix' =>  LaravelLocalization::setLocale(),'middleware' =>
 
      //////////// end of  authentication and guards ////////
 
-    ############## relation
+    ############## relation has one 
 
     Route::get('hasone',[App\Http\Controllers\RelationController::class, 'hasOneRelation']);
     Route::get('Reversehasone',[App\Http\Controllers\RelationController::class, 'ReverseHasOne']);
     Route::get('gethasphone',[App\Http\Controllers\RelationController::class, 'gethasphone']);
     Route::get('getwithcondition',[App\Http\Controllers\RelationController::class, 'getwithcondition']);
 
+########## relation has many 
+
+Route::get('hasmany',[App\Http\Controllers\RelationController::class, 'hasmany']);
+
+Route::get('getHospital',[App\Http\Controllers\RelationController::class, 'getHospital']);
+Route::get('getDoctors/{hospital_id}',[App\Http\Controllers\RelationController::class, 'getDoctors'])->name('Hospital.Doctors');
+
+
+////////// relation many to many 
+
+Route::get('manytomany',[App\Http\Controllers\RelationController::class, 'manytomany']);
+
+Route::get('inversemanytomany',[App\Http\Controllers\RelationController::class, 'inversemanytomany']);
+
+Route::get('getService/{doctor_id}',[App\Http\Controllers\RelationController::class, 'getService'])->name('Doctors.Services');
+
+Route::post('SaveServices',[App\Http\Controllers\RelationController::class, 'SaveServices'])->name('Save.Services');
 
 

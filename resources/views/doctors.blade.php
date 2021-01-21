@@ -10,18 +10,17 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
-                <th scope="col">Address</th>
+                <th scope="col">Title</th>
                 <th scope="col">Handle</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($hospitals as $hospital)
+              @foreach ($doctors as $doctor)
                 <tr>
-                  <td>{{$hospital->id}}</td>
-                <td>{{$hospital->name}}</td>
-                <td>{{$hospital->address}}</td>
-                <td><a href="{{route('Hospital.Doctors', $hospital->id)}}" class="btn btn-success">show Doctors</a></td>
-                <td></td>
+                  <td>{{$doctor->id}}</td>
+                <td>{{$doctor->name}}</td>
+                <td>{{$doctor->title}}</td> 
+                <td><a href="{{route('Doctors.Services', $doctor->id)}}" class="btn btn-success">Show Service</a></td>
                 </tr>
                 @endforeach
             

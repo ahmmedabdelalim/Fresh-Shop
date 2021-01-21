@@ -20,9 +20,9 @@
       <label class="control-label col-sm-2" for="email">{{__('messages.offer photo')}}</label>
       <div class="col-sm-10">
         <input type="file" class="form-control" id="email" placeholder="Enter name " name="photo">
-        @error('photo')
-        <small class="from-text text-danger">{{$message}}</small>
-        @enderror
+        
+        <small id="photo_error" class="from-text text-danger"></small>
+        
       </div>
     </div>
 
@@ -30,18 +30,18 @@
       <label class="control-label col-sm-2" for="email">{{__('messages.offer name')}}</label>
       <div class="col-sm-10">
         <input type="tex" class="form-control" id="email" placeholder="Enter name " name="name">
-        @error('name')
-        <small class="from-text text-danger">{{$message}}</small>
-        @enderror
+        
+        <small  id="name_error" class="from-text text-danger"></small>
+        
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">{{__('messages.offer price')}}</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control"   placeholder="Enter price" name="price">
-        @error('price')
-        <small class="from-text text-danger">{{$message}}</small>
-        @enderror
+        
+        <small  id="price_error" class="from-text text-danger"></small>
+        
       </div>
     </div>
     <!--
@@ -99,6 +99,15 @@
                 alert(data.msg)
                 
               },
+              error: function  (reject) {
+                var response = $.parseJSON(reject.responseText);
+                $.each(response.errors,function  (key , val) {
+
+                    $('#'+ key + "_error").text(val[0]); 
+                  
+                });
+                
+              }
 
             });
           });

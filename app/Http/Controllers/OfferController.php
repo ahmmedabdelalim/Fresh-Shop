@@ -63,7 +63,7 @@ class OfferController extends Controller
     return $rules=[
 
             'name'=> 'required|max:100|Unique:offers,name', 
-            'price'=> 'required|numeric',
+            'price'=> 'required|numeric|Unique:offers,price',
             'photo'=> 'required',
         ];
     }
