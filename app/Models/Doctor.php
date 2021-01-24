@@ -9,7 +9,7 @@ class Doctor extends Model
 {
     use HasFactory;
     protected $table = 'doctors';
-    protected $fillable = ['id','name','title','hospital-id'];
+    protected $fillable = ['id','name','title','hospital-id','medical-id'];
     protected $hidden = ['pivot'];
     
     public function hospital()

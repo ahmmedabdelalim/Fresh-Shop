@@ -3,6 +3,7 @@
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -34,7 +35,7 @@
     </div>
   </nav>
   
-   
+  
 @if (Session::has('errore'))
 <div class="alert alert-success" role="alert">
   {{Session::get('errore')}}
@@ -48,6 +49,7 @@
   </div>
   <br>
   @endif
+  
   <table class="table table-dark">
     <thead>
       <tr>
@@ -74,8 +76,9 @@
       </tr>
       @endforeach
       
-      
     </tbody>
   </table>
+  {{ $offers->links() }}
+  
 </body>
 </html>

@@ -30,9 +30,15 @@
       <td><a href="{{route('ajax.offers.edit',$offer -> id)}}" class="btn btn-success">Edit</a></td>
       
     </tr>
+    
     @endforeach
+    
+  </tbody>
+</table>
+
         
 @endsection
+
 
 @section('scripts')
 <script type="text/javascript">
@@ -72,3 +78,6 @@ $("body").on("click",".ajaxdelete",function(e){
 </script>
     
 @endsection
+<div class="d-flex justify-content-center " >
+  {!! $offers->links() !!}
+</div>

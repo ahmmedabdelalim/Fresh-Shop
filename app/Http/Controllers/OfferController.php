@@ -86,7 +86,10 @@ class OfferController extends Controller
 
     public function all()
     {
-        $offers= Offer::select('id','name','price','photo')->get();
+        //$offers= Offer::select('id','name','price','photo')->get();
+        $offers= Offer::select('id','name','price','photo')->paginate(pagination);
+
+
         return view('ajaxoffers.display',compact('offers'));
 
     }

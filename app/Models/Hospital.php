@@ -9,7 +9,7 @@ class Hospital extends Model
 {
     use HasFactory;
     protected $table = 'hospitals';
-    protected $fillable = ['id','name','address',];
+    protected $fillable = ['id','name','address','country-id'];
 
     public function doctor()
     {

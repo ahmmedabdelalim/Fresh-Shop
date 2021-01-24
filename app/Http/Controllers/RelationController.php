@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Doctor;
 use App\Models\Hospital;
+use App\Models\Patient;
 use App\Models\Phone;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -141,7 +143,7 @@ class RelationController extends Controller
     }
 
 
-    #### show the service fo data 
+    #### show the service fo data  and show the doctor in option select
 
     public function getService($doctor_id)
         {
@@ -153,7 +155,7 @@ class RelationController extends Controller
             return  view('services',compact('services','showdoctors','showservices'));
         }
 
-        public function SaveServices(Request $request)
+        public function SaveServices(Request $request) /// for insert services for other doctor 
 
         {
             $doctor = Doctor::find($request->doctor_id);
@@ -163,6 +165,24 @@ class RelationController extends Controller
             $doctor->service()->syncWithoutDetaching($request->service_id); // for add without duobliy
             return redirect()->back() ;
         }
+
+
+
+///////////////////////// has through one 
+        public function getpatient()
+        {
+            $patient = Patient::find(1 );
+            echo $patient->doctor;
+            echo $patient;
+        }
+/////////////////////  has through many
+
+public function getcountry()
+{
+    $country = Country::find(1);
+    
+    echo $country->doctors;
+}
 
 
 

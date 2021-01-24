@@ -17,7 +17,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 */
 
 
-
+define('pagination',5);
 
 Auth::routes(['verify' => true]);
 
@@ -116,4 +116,9 @@ Route::get('getService/{doctor_id}',[App\Http\Controllers\RelationController::cl
 
 Route::post('SaveServices',[App\Http\Controllers\RelationController::class, 'SaveServices'])->name('Save.Services');
 
+
+############################## relation has through one  and many
+
+Route::get('getpatient',[App\Http\Controllers\RelationController::class, 'getpatient']);
+Route::get('getcountry',[App\Http\Controllers\RelationController::class, 'getcountry']);
 
